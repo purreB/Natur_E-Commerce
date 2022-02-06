@@ -2,6 +2,7 @@ interface User {
   name: string;
   role: string;
   password: string;
+  adress: string;
 }
 
 interface Admin {
@@ -14,6 +15,7 @@ export const user: User = {
   name: 'user',
   role: 'user',
   password: 'user',
+  adress: 'user adress',
 };
 
 export const admin: Admin = {
