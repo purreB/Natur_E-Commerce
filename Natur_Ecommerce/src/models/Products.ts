@@ -7,11 +7,11 @@ export interface Product {
 }
 
 interface ProductListInterface {
-  products: Array<Product>;
+  listOfProducts: Array<Product>;
 }
 
 export let productList: ProductListInterface = {
-  products: [
+  listOfProducts: [
     { id: 1, name: 'tent', price: 500, inStore: 5, inCart: 0 },
     { id: 2, name: 'thermos', price: 110, inStore: 20, inCart: 0 },
     { id: 3, name: 'flashlight', price: 200, inStore: 10, inCart: 0 },
