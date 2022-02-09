@@ -1,12 +1,12 @@
-import ContextProvider, { ProductsContext } from './context/ContextProvider';
-import { useContext } from 'react';
+import ProductList from './components/ProductList/ProductList';
+import ContextProvider from './context/ContextProvider';
+
 function App() {
-  const defaultProductList = useContext(ProductsContext);
-  console.log(defaultProductList);
   return (
     <div className="App">
       <ContextProvider>
         <h1>App Render</h1>
+        <ProductList />
       </ContextProvider>
     </div>
   );
