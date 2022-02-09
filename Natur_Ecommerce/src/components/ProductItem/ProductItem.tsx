@@ -1,4 +1,6 @@
 import { Product } from '../../models/Products';
+import ListItem from '@mui/material/ListItem';
+import { ListItemText } from '@mui/material';
 
 interface Props {
   product: Product;
@@ -6,9 +8,14 @@ interface Props {
 
 const ProductItem = ({ product }: Props) => {
   return (
-    <li data-testid={'product' + product.id}>
-      <h3>{product.name}</h3>
-    </li>
+    <ListItem alignItems="flex-start" data-testid={'product' + product.id}>
+      <ListItemText
+        primary={product.name}
+        secondary={product.price + '' + 'kr'}
+      />
+      <ListItemText>{product.inStore} in store</ListItemText>
+      <button>Add to cart</button>
+    </ListItem>
   );
 };
 
