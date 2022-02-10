@@ -4,17 +4,23 @@ import { ListItemText } from '@mui/material';
 
 interface Props {
   product: Product;
+  addToCart(product: Product): any;
 }
 
-const ProductItem = ({ product }: Props) => {
+const ProductItem = ({ product, addToCart }: Props) => {
   return (
-    <ListItem alignItems="flex-start" data-testid={'product' + product.id}>
+    <ListItem
+      divider={true}
+      alignItems="flex-start"
+      data-testid={'product' + product.id}
+      sx={{ flexDirection: 'column' }}
+    >
       <ListItemText
         primary={product.name}
         secondary={product.price + '' + 'kr'}
       />
       <ListItemText>{product.inStore} in store</ListItemText>
-      <button>Add to cart</button>
+      <button onClick={() => addToCart(product)}>Add to cart</button>
     </ListItem>
   );
 };
