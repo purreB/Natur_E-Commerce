@@ -7,7 +7,7 @@ interface Props {
   addToCart(product: Product): any;
 }
 
-const ProductItem = ({ product, addToCart }: Props) => {
+function ProductItem({ product, addToCart }: Props): JSX.Element {
   return (
     <ListItem
       divider={true}
@@ -23,6 +23,6 @@ const ProductItem = ({ product, addToCart }: Props) => {
       <button onClick={() => addToCart(product)}>Add to cart</button>
     </ListItem>
   );
-};
+}
 
 export default ProductItem;

@@ -5,7 +5,7 @@ import List from '@mui/material/List';
 import { Box, Grid } from '@mui/material';
 import { Product } from '../../models/Products';
 
-function ProductList() {
+function ProductList(): JSX.Element {
   const defaultProductContext = useContext(ProductsContext);
   const defaultProductList = defaultProductContext.listOfProducts;
 
