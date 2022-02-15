@@ -10,14 +10,13 @@ function ProductList(): JSX.Element {
   console.log('pList log before func call', productList);
 
   function addToCart(product: Product) {
-    console.log(product);
     let newProductList = productList;
     newProductList.map((p: any) => {
       if (p.id === product.id) {
         if (p.inStore >= 1) {
           p.inStore = p.inStore - 1;
           setProductList([...newProductList]);
-          console.log('Clog after setProductList', productList);
+          //* Here we also set localStorage and update the cart
         } else {
           console.log('No more in store');
         }
@@ -29,7 +28,7 @@ function ProductList(): JSX.Element {
     <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
       <Grid container spacing={2}>
         <Grid item xs={12} m={6}>
-          <List dense={false} className="contact-list">
+          <List dense={false} className="contact-list" data-testid="ulTest">
             {productList.map((p) => (
               <ProductItem
                 key={p.id}
