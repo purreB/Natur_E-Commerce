@@ -1,5 +1,9 @@
 import { Product } from './Products';
 
-export interface Cart {
-  products: [Product];
+interface Cart {
+  products: [];
 }
+
+export const cart: Cart = {
+  products: [],
+};
