@@ -1,14 +1,14 @@
+import { RecoilRoot } from 'recoil';
 import ProductList from './components/ProductList/ProductList';
-import ContextProvider from './context/ContextProvider';
 
 function App() {
   return (
-    <div className="App">
-      <ContextProvider>
+    <RecoilRoot>
+      <div className="App">
         <h1>App Render</h1>
         <ProductList />
-      </ContextProvider>
-    </div>
+      </div>
+    </RecoilRoot>
   );
 }
 
