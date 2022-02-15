@@ -1,5 +1,3 @@
-import { Product } from './Products';
-
 interface Cart {
   products: [];
 }
