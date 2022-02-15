@@ -4,10 +4,19 @@ import { Box, Grid } from '@mui/material';
 import { Product } from '../../models/Products';
 import { useRecoilState } from 'recoil';
 import { productState } from '../../atoms/productsState';
+import { useEffect } from 'react';
 
 function ProductList(): JSX.Element {
   const [productList, setProductList] = useRecoilState(productState);
-  console.log('pList log before func call', productList);
+
+  useEffect(() => {
+    if (localStorage.getItem('Store')) {
+      let storageStore = JSON.parse(localStorage.getItem('Store')!);
+      setProductList([...storageStore]);
+    } else {
+      localStorage.setItem('Store', JSON.stringify(productList));
+    }
+  }, []);
 
   function addToCart(product: Product) {
     let newProductList = productList;
@@ -17,6 +26,7 @@ function ProductList(): JSX.Element {
           p.inStore = p.inStore - 1;
           setProductList([...newProductList]);
           //* Here we also set localStorage and update the cart
+          localStorage.setItem('Store', JSON.stringify(productList));
         } else {
           console.log('No more in store');
         }
