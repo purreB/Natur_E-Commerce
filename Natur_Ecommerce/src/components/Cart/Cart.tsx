@@ -42,7 +42,7 @@ function Cart() {
         anchor="right"
       >
         <List className="cart-list">
-          {itemsFound
+          {cartList
             ? cartList?.map((c) => (
                 <CartItem
                   key={c.id}

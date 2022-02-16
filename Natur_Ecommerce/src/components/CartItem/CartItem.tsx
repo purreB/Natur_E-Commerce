@@ -19,7 +19,7 @@ function CartItem({ product, removeFromCart }: Props): JSX.Element {
         primary={product.name}
         secondary={product.price + '' + 'kr'}
       />
-      <ListItemText>{product.inStore} in store</ListItemText>
+      <ListItemText>{product.inCart} in cart</ListItemText>
       <button onClick={() => removeFromCart(product)}>Remove from cart</button>
     </ListItem>
   );
