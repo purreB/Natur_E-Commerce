@@ -4,10 +4,11 @@ import { Box, Grid } from '@mui/material';
 import { Product } from '../../models/Products';
 import { useRecoilState } from 'recoil';
 import { productState } from '../../atoms/productsState';
-import { useEffect } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 function ProductList(): JSX.Element {
   const [productList, setProductList] = useRecoilState(productState);
+  const [filterState, setFilterState] = useState('');
 
   useEffect(() => {
     if (localStorage.getItem('Store')) {
@@ -18,6 +19,22 @@ function ProductList(): JSX.Element {
     }
   }, []);
 
+  const filteredProducts = productList.filter(
+    (product) =>
+      product.name.toLowerCase().search(filterState.toLowerCase()) != -1
+  );
+
+  function onChangeHandler(event: ChangeEvent<HTMLInputElement>) {
+    setFilterState(event.target.value);
+  }
+
+  const renderAllProducts = productList.map((p) => (
+    <ProductItem product={p} key={p.id} addToCart={() => addToCart(p)} />
+  ));
+
+  const renderFilteredProducts = filteredProducts?.map((p) => (
+    <ProductItem product={p} key={p.id} addToCart={() => addToCart(p)} />
+  ));
   function addToCart(product: Product) {
     let newProductList = productList;
     newProductList.map((p: any) => {
@@ -25,7 +42,7 @@ function ProductList(): JSX.Element {
         if (p.inStore >= 1) {
           p.inStore = p.inStore - 1;
           setProductList([...newProductList]);
-          //* Here we also set localStorage and update the cart
+          //* Here we update the cart
           localStorage.setItem('Store', JSON.stringify(productList));
         } else {
           console.log('No more in store');
@@ -38,14 +55,15 @@ function ProductList(): JSX.Element {
     <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
       <Grid container spacing={2}>
         <Grid item xs={12} m={6}>
+          <form onSubmit={(e) => e.preventDefault()}>
+            <input
+              type="text"
+              placeholder="Filter by name.."
+              onChange={(e) => onChangeHandler(e)}
+            />
+          </form>
           <List dense={false} className="contact-list" data-testid="ulTest">
-            {productList.map((p) => (
-              <ProductItem
-                key={p.id}
-                product={p}
-                addToCart={() => addToCart(p)}
-              />
-            ))}
+            {filterState === '' ? renderAllProducts : renderFilteredProducts}
           </List>
         </Grid>
       </Grid>
