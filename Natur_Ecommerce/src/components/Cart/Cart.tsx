@@ -16,8 +16,13 @@ function Cart() {
   const [itemsFound, setItemsFound] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem('Cart', JSON.stringify(cartList));
-  }, [cartList]);
+    let fetchedCart = JSON.parse(localStorage.getItem('Cart')!);
+    if (fetchedCart === undefined) {
+      return;
+    } else {
+      setcartList(fetchedCart);
+    }
+  }, []);
 
   function removeFromCart(product: Product) {
     console.log(product);

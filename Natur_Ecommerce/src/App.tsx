@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import Login from './components/Login/Login';
 import ProductList from './components/ProductList/ProductList';
 import './App.css';

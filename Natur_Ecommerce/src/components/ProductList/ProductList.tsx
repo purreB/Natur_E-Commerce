@@ -55,16 +55,22 @@ function ProductList(): JSX.Element {
               }
               if (alreadyAdded) {
                 setcartList([...newCartList]);
+                localStorage.setItem('Cart', JSON.stringify(cartList));
               }
               return alreadyAdded;
             });
           } else {
             product.inCart = product.inCart + 1;
             setcartList([product]);
+            localStorage.setItem('Cart', JSON.stringify(product));
           }
           if (newCartList && alreadyAdded === false) {
             product.inCart = product.inCart + 1;
             setcartList([product, ...newCartList]);
+            localStorage.setItem(
+              'Cart',
+              JSON.stringify([product, ...newCartList])
+            );
           }
         } else {
           console.log('No more in store');
