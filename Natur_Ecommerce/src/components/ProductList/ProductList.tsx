@@ -51,12 +51,10 @@ function ProductList(): JSX.Element {
             newCartList.map((c: any) => {
               if (c.id === product.id) {
                 c.inCart = c.inCart + 1;
-                console.log('LOG IN IF ID STATEMENT');
                 alreadyAdded = true;
               }
               if (alreadyAdded) {
                 setcartList([...newCartList]);
-                console.log('LOG IN ALREADYADDED');
               }
               return alreadyAdded;
             });

@@ -16,13 +16,7 @@ function Cart() {
   const [itemsFound, setItemsFound] = useState(false);
 
   useEffect(() => {
-    // if (localStorage.getItem('Cart')) {
-    //   let cart = JSON.parse(localStorage.getItem('Cart')!);
-    //   setcartList([...cart]);
-    // } else {
-    //   return;
-    // }
-    console.log('Log on change in Cart comp', cartList);
+    localStorage.setItem('Cart', JSON.stringify(cartList));
   }, [cartList]);
 
   function removeFromCart(product: Product) {
