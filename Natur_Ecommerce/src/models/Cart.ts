@@ -1,7 +1,3 @@
-interface Cart {
-  products: [];
-}
+import { Product } from './Products';
 
-export const cart: Cart = {
-  products: [],
-};
+export let cart: Array<Product>;

@@ -5,9 +5,11 @@ import { Product } from '../../models/Products';
 import { useRecoilState } from 'recoil';
 import { productState } from '../../atoms/productsState';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { cartState } from '../../atoms/cartState';
 
 function ProductList(): JSX.Element {
   const [productList, setProductList] = useRecoilState(productState);
+  const [cartList, setcartList] = useRecoilState(cartState);
   const [filterState, setFilterState] = useState('');
 
   useEffect(() => {
@@ -44,6 +46,12 @@ function ProductList(): JSX.Element {
           setProductList([...newProductList]);
           //* Here we update the cart
           localStorage.setItem('Store', JSON.stringify(productList));
+          if (cartList && cartList.length > 0) {
+            let newCartList = cartList;
+            setcartList([product, ...newCartList]);
+          } else {
+            setcartList([product]);
+          }
         } else {
           console.log('No more in store');
         }
