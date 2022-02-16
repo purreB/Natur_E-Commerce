@@ -39,18 +39,34 @@ function ProductList(): JSX.Element {
   ));
   function addToCart(product: Product) {
     let newProductList = productList;
+    let newCartList = cartList;
     newProductList.map((p: any) => {
       if (p.id === product.id) {
         if (p.inStore >= 1) {
           p.inStore = p.inStore - 1;
           setProductList([...newProductList]);
-          //* Here we update the cart
           localStorage.setItem('Store', JSON.stringify(productList));
+          let alreadyAdded: boolean = false;
           if (cartList && cartList.length > 0) {
-            let newCartList = cartList;
-            setcartList([product, ...newCartList]);
+            newCartList.map((c: any) => {
+              if (c.id === product.id) {
+                c.inCart = c.inCart + 1;
+                console.log('LOG IN IF ID STATEMENT');
+                alreadyAdded = true;
+              }
+              if (alreadyAdded) {
+                setcartList([...newCartList]);
+                console.log('LOG IN ALREADYADDED');
+              }
+              return alreadyAdded;
+            });
           } else {
+            product.inCart = product.inCart + 1;
             setcartList([product]);
+          }
+          if (newCartList && alreadyAdded === false) {
+            product.inCart = product.inCart + 1;
+            setcartList([product, ...newCartList]);
           }
         } else {
           console.log('No more in store');

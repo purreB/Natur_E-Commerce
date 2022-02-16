@@ -3,7 +3,7 @@ export interface Product {
   name: string;
   price: number;
   inStore: number;
-  inCart: number | undefined;
+  inCart: number;
 }
 
 export let productList = [
