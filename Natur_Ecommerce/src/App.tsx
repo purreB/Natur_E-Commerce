@@ -1,20 +1,24 @@
 import { useEffect, useState } from 'react';
-import { RecoilRoot } from 'recoil';
+import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil';
 import Login from './components/Login/Login';
 import ProductList from './components/ProductList/ProductList';
 import './App.css';
+import { userState } from './atoms/userState';
 
 function App() {
-  const [userFound, setuserFound] = useState(Boolean);
+  const userFound = useRecoilValue(userState);
+  const [localUserFound, setlocalUserFound] = useState(Boolean);
   useEffect(() => {
     if (localStorage.getItem('User')) {
-      setuserFound(true);
+      setlocalUserFound(true);
     } else {
-      setuserFound(false);
+      setlocalUserFound(false);
     }
-  }, []);
+  }, [userFound]);
 
-  return <RecoilRoot>{userFound ? <ProductList /> : <Login />}</RecoilRoot>;
+  return (
+    <div className="App">{localUserFound ? <ProductList /> : <Login />}</div>
+  );
 }
 
 export default App;

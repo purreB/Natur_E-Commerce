@@ -4,3 +4,23 @@ body {
 ul {
     background-color: chartreuse;
 }
+form {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: row;
+}
+
+.error-msg {
+    color: red;
+    margin-left: 2px;
+    margin-right: 20px;
+}
+
+.user-info {
+    color: blueviolet;
+}
+
+.form-header {
+    text-align: center;
+}
