@@ -28,38 +28,41 @@ function Login(): JSX.Element {
         added)
       </p>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <p className="user-info">Username</p>
-          <input
-            data-testid={'usernameTest'}
-            {...register('userName', {
-              required: true,
-              validate: (value) => {
-                return value.toLowerCase() === 'user' || 'Error message';
-              },
-            })}
-          />
-          {errors.userName && (
-            <p className="error-msg" role="alert">
-              Incorrect username, please write "user" as username
-            </p>
-          )}
-
-          <p className="user-info">Password</p>
-          <input
-            data-testid={'passwordTest'}
-            {...register('password', {
-              required: true,
-              validate: (value) => {
-                return value.toLowerCase() === 'user' || 'Error message';
-              },
-            })}
-          />
-          {errors.password && (
-            <p className="error-msg" role="alert">
-              Incorrect password, please write "user" as password
-            </p>
-          )}
+        <div className="input-div">
+          <div className="username-div">
+            <input
+              placeholder="Username"
+              data-testid={'usernameTest'}
+              {...register('userName', {
+                required: true,
+                validate: (value) => {
+                  return value.toLowerCase() === 'user' || 'Error message';
+                },
+              })}
+            />
+            {errors.userName && (
+              <p className="error-msg" role="alert">
+                Incorrect username, please write "user" as username
+              </p>
+            )}
+          </div>
+          <div className="password-div">
+            <input
+              data-testid={'passwordTest'}
+              placeholder="Password"
+              {...register('password', {
+                required: true,
+                validate: (value) => {
+                  return value.toLowerCase() === 'user' || 'Error message';
+                },
+              })}
+            />
+            {errors.password && (
+              <p className="error-msg" role="alert">
+                Incorrect password, please write "user" as password
+              </p>
+            )}
+          </div>
         </div>
         <button
           data-testid="btnTest"

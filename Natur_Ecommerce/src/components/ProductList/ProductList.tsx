@@ -85,6 +85,7 @@ function ProductList(): JSX.Element {
         <Grid item xs={12} m={6}>
           <form onSubmit={(e) => e.preventDefault()}>
             <input
+              className="search-input"
               type="text"
               placeholder="Filter by name.."
               onChange={(e) => onChangeHandler(e)}
