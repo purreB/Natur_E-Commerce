@@ -44,13 +44,14 @@ function ProductList(): JSX.Element {
       if (p.id === product.id) {
         if (p.inStore >= 1) {
           p.inStore = p.inStore - 1;
+          p.inCart = p.inCart + 1;
           setProductList([...newProductList]);
           localStorage.setItem('Store', JSON.stringify(productList));
           let alreadyAdded: boolean = false;
           if (cartList && cartList.length > 0) {
             newCartList.map((c: any) => {
               if (c.id === product.id) {
-                c.inCart = c.inCart + 1;
+                c.inCart = product.inCart;
                 alreadyAdded = true;
               }
               if (alreadyAdded) {
@@ -60,12 +61,10 @@ function ProductList(): JSX.Element {
               return alreadyAdded;
             });
           } else {
-            product.inCart = product.inCart + 1;
             setcartList([product]);
             localStorage.setItem('Cart', JSON.stringify(product));
           }
           if (newCartList && alreadyAdded === false) {
-            product.inCart = product.inCart + 1;
             setcartList([product, ...newCartList]);
             localStorage.setItem(
               'Cart',

@@ -9,10 +9,12 @@ import { cartState } from '../../atoms/cartState';
 import CartItem from '../CartItem/CartItem';
 import { useRecoilState } from 'recoil';
 import { Product } from '../../models/Products';
+import { productState } from '../../atoms/productsState';
 
 const drawerWidth = 240;
 function Cart() {
   const [cartList, setcartList] = useRecoilState(cartState);
+  const [storeList, setstoreList] = useRecoilState(productState);
   const [totalSum, setTotalSum] = useState(0);
 
   useEffect(() => {
@@ -31,7 +33,48 @@ function Cart() {
   //   setTotalSum(newTotalSum);
   // })}
   function removeFromCart(product: Product) {
-    console.log(product);
+    let fetchedCart = JSON.parse(localStorage.getItem('Cart')!);
+    let fetchedStore = JSON.parse(localStorage.getItem('Store')!);
+    let productRemoved: boolean = false;
+    if (product.inCart > 1) {
+      fetchedCart.map((c: any) => {
+        if (c.id === product.id) {
+          c.inCart = c.inCart - 1;
+          localStorage.setItem('Cart', JSON.stringify(fetchedCart));
+          setcartList(fetchedCart);
+        }
+      });
+      fetchedStore.map((p: any) => {
+        if (p.id === product.id) {
+          p.inStore = p.inStore + 1;
+          p.inCart = product.inCart - 1;
+          localStorage.setItem('Store', JSON.stringify(fetchedStore));
+          setstoreList(fetchedStore);
+        }
+      });
+    } else if (product.inCart <= 1) {
+      fetchedCart.map((c: any) => {
+        if (c.id === product.id) {
+          c.inCart = 0;
+          let index = fetchedCart.indexOf(c);
+          fetchedCart.splice(index, 1);
+          productRemoved = true;
+          if (productRemoved) {
+            localStorage.setItem('Cart', JSON.stringify(fetchedCart));
+            setcartList(fetchedCart);
+          }
+        }
+      });
+
+      fetchedStore.map((p: any) => {
+        if (p.id === product.id) {
+          p.inStore = p.inStore + 1;
+          p.inCart = p.inCart * 0;
+          localStorage.setItem('Store', JSON.stringify(fetchedStore));
+          setstoreList(fetchedStore);
+        }
+      });
+    }
   }
 
   return (
