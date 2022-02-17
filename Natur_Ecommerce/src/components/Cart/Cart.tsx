@@ -53,12 +53,6 @@ function Cart() {
     calculateSum();
   }, [cartList]);
 
-  //* Maybe this can calculate sum??
-  // {cartList?.map((c) => {
-  //   let itemSum = c.price * c.inCart;
-  //   let newTotalSum = itemSum + totalSum;
-  //   setTotalSum(newTotalSum);
-  // })}
   function removeFromCart(product: Product) {
     let fetchedCart = JSON.parse(localStorage.getItem('Cart')!);
     let fetchedStore = JSON.parse(localStorage.getItem('Store')!);
