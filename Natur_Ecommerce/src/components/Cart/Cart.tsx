@@ -13,7 +13,7 @@ import { Product } from '../../models/Products';
 const drawerWidth = 240;
 function Cart() {
   const [cartList, setcartList] = useRecoilState(cartState);
-  const [itemsFound, setItemsFound] = useState(false);
+  const [totalSum, setTotalSum] = useState(0);
 
   useEffect(() => {
     let fetchedCart = JSON.parse(localStorage.getItem('Cart')!);
@@ -24,9 +24,16 @@ function Cart() {
     }
   }, []);
 
+  //* Maybe this can calculate sum??
+  // {cartList?.map((c) => {
+  //   let itemSum = c.price * c.inCart;
+  //   let newTotalSum = itemSum + totalSum;
+  //   setTotalSum(newTotalSum);
+  // })}
   function removeFromCart(product: Product) {
     console.log(product);
   }
+
   return (
     <div>
       <Drawer
