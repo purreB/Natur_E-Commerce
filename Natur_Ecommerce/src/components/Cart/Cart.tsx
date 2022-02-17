@@ -124,7 +124,7 @@ function Cart() {
             : null}
         </List>
         <Divider />
-        <p>Total sum:{totalSum}</p>
+        {!isNaN(totalSum) ? <p>Total Sum: {totalSum}</p> : null}
       </Drawer>
     </div>
   );

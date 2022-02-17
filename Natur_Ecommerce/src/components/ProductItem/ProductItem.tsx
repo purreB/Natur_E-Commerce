@@ -12,7 +12,7 @@ function ProductItem({ product, addToCart }: Props): JSX.Element {
     <ListItem
       divider={true}
       alignItems="flex-start"
-      data-testid={'product' + product.id}
+      data-testid={'productItem' + product.id}
       sx={{ flexDirection: 'column' }}
     >
       <ListItemText
@@ -20,7 +20,12 @@ function ProductItem({ product, addToCart }: Props): JSX.Element {
         secondary={product.price + '' + 'kr'}
       />
       <ListItemText>{product.inStore} in store</ListItemText>
-      <button onClick={() => addToCart(product)}>Add to cart</button>
+      <button
+        data-testid={'product' + product.id}
+        onClick={() => addToCart(product)}
+      >
+        Add to cart
+      </button>
     </ListItem>
   );
 }

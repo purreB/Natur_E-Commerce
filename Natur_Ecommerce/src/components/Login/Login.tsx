@@ -31,6 +31,7 @@ function Login(): JSX.Element {
         <div>
           <p className="user-info">Username</p>
           <input
+            data-testid={'usernameTest'}
             {...register('userName', {
               required: true,
               validate: (value) => {
@@ -39,13 +40,14 @@ function Login(): JSX.Element {
             })}
           />
           {errors.userName && (
-            <p className="error-msg">
+            <p className="error-msg" role="alert">
               Incorrect username, please write "user" as username
             </p>
           )}
 
           <p className="user-info">Password</p>
           <input
+            data-testid={'passwordTest'}
             {...register('password', {
               required: true,
               validate: (value) => {
@@ -54,12 +56,16 @@ function Login(): JSX.Element {
             })}
           />
           {errors.password && (
-            <p className="error-msg">
+            <p className="error-msg" role="alert">
               Incorrect password, please write "user" as password
             </p>
           )}
         </div>
-        <input type="submit" hidden />
+        <button
+          data-testid="btnTest"
+          type="submit"
+          style={{ display: 'none' }}
+        />
       </form>
     </>
   );
