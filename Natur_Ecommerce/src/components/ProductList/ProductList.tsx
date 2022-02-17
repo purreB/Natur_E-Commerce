@@ -37,6 +37,7 @@ function ProductList(): JSX.Element {
   const renderFilteredProducts = filteredProducts?.map((p) => (
     <ProductItem product={p} key={p.id} addToCart={() => addToCart(p)} />
   ));
+
   function addToCart(product: Product) {
     let newProductList = productList;
     let newCartList = cartList;

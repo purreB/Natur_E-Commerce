@@ -4,18 +4,19 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { cartState } from '../../atoms/cartState';
 import CartItem from '../CartItem/CartItem';
 import { useRecoilState } from 'recoil';
 import { Product } from '../../models/Products';
 import { productState } from '../../atoms/productsState';
+import { totalSumState } from '../../atoms/totalSumState';
 
 const drawerWidth = 240;
 function Cart() {
   const [cartList, setcartList] = useRecoilState(cartState);
   const [storeList, setstoreList] = useRecoilState(productState);
-  const [totalSum, setTotalSum] = useState(0);
+  const [totalSum, settotalSum] = useRecoilState(totalSumState);
 
   useEffect(() => {
     let fetchedCart = JSON.parse(localStorage.getItem('Cart')!);
@@ -25,6 +26,32 @@ function Cart() {
       setcartList(fetchedCart);
     }
   }, []);
+
+  useEffect(() => {
+    const calculateSum = async () => {
+      let fetchedCart = await JSON.parse(localStorage.getItem('Cart')!);
+      let result = 0;
+      if (fetchedCart !== undefined || null) {
+        if (fetchedCart.length === 1) {
+          const totalSumOfProduct =
+            fetchedCart[0].price * fetchedCart[0].inCart;
+          result += totalSumOfProduct;
+        } else if (fetchedCart.length >= 2) {
+          fetchedCart.forEach((product: { price: number; inCart: number }) => {
+            const totalSumOfProduct = product.price * product.inCart;
+            result += totalSumOfProduct;
+          });
+        } else {
+          const totalSumOfProduct = fetchedCart.price * fetchedCart.inCart;
+          result += totalSumOfProduct;
+        }
+        settotalSum(result);
+      } else {
+        console.log('Fetched cart is null or undefined');
+      }
+    };
+    calculateSum();
+  }, [cartList]);
 
   //* Maybe this can calculate sum??
   // {cartList?.map((c) => {
@@ -103,7 +130,7 @@ function Cart() {
             : null}
         </List>
         <Divider />
-        <p>Total sum here</p>
+        <p>Total sum:{totalSum}</p>
       </Drawer>
     </div>
   );
