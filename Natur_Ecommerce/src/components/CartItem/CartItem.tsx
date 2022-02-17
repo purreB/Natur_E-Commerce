@@ -20,7 +20,12 @@ function CartItem({ product, removeFromCart }: Props): JSX.Element {
         secondary={product.price + '' + 'kr'}
       />
       <ListItemText>{product.inCart} in cart</ListItemText>
-      <button onClick={() => removeFromCart(product)}>Remove from cart</button>
+      <button
+        data-testid={'productBtn' + product.id}
+        onClick={() => removeFromCart(product)}
+      >
+        Remove from cart
+      </button>
     </ListItem>
   );
 }

@@ -1,9 +1,6 @@
 import Drawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import { useEffect } from 'react';
 import { cartState } from '../../atoms/cartState';
 import CartItem from '../CartItem/CartItem';
@@ -31,7 +28,7 @@ function Cart() {
     const calculateSum = async () => {
       let fetchedCart = await JSON.parse(localStorage.getItem('Cart')!);
       let result = 0;
-      if (fetchedCart !== undefined || null) {
+      if (fetchedCart !== null) {
         if (fetchedCart.length === 1) {
           const totalSumOfProduct =
             fetchedCart[0].price * fetchedCart[0].inCart;
@@ -112,7 +109,7 @@ function Cart() {
         variant="permanent"
         anchor="right"
       >
-        <List className="cart-list">
+        <List className="cart-list" data-testid="cartUL">
           {cartList
             ? cartList?.map((c) => (
                 <CartItem
